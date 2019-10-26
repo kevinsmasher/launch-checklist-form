@@ -64,22 +64,37 @@ let fuelLow = window.addEventListener("load", function() {
          document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
          document.getElementById("launchStatus").style.color = 'red';
          document.getElementById("fuelStatus").innerHTML = "Fuel level too low!";
-         event.preventDefault();
-      }
+        }  else {
+         document.getElementById("fuelStatus").innerHTML = "Fuel level high enough for launch";
+         }
+       event.preventDefault();
    });
 });
 
 let cargoHigh = window.addEventListener("load", function() {
    let form = document.querySelector("form");
    form.addEventListener("submit", function(event) {
-      let cargoMassInput = document.querySelector("input[name=cargoMass]")
+      let cargoMassInput = document.querySelector("input[name=cargoMass]");
+      let fuelLevelInput = document.querySelector("input[name=fuelLevel]")
       if (cargoMassInput.value > 10000) {
          document.getElementById("faultyItems").style.visibility = 'visible';
          document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
          document.getElementById("launchStatus").style.color = 'red';
          document.getElementById("cargoStatus").innerHTML = "Too much cargo!";
-         event.preventDefault();
-      }
+      } else {
+         document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+      
+      // } else if (cargoMassInput.value < 10000 && fuelLevelInput.value < 10000) {
+      //    document.getElementById("faultyItems").style.visibility = 'visible';
+      //    document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
+      //    document.getElementById("launchStatus").style.color = 'red';
+      //    document.getElementById("cargoStatus").innerHTML = "Cargo mass low enough for launch";
+      // }    else if (cargoMassInput.value > 10000 && fuelLevelInput.value > 10000) {
+      //    document.getElementById("faultyItems").style.visibility = 'visible';
+      //    document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
+      //    document.getElementById("launchStatus").style.color = 'red';
+      //    document.getElementById("fuelStatus").innerHTML = "Fuel level high enough for launch";
+      }         event.preventDefault();
    });
 });
 
@@ -140,6 +155,9 @@ window.addEventListener("load", function() {
       let cargoMassInput = document.querySelector("input[name=cargoMass]")
       if (pilotNameInput.value === "" || copilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
          alert("All fields are required!");
+         document.getElementById("faultyItems").style.visibility = 'hidden';
+         document.getElementById("launchStatus").innerHTML = "Awaiting Information Before Launch";
+         document.getElementById("launchStatus").style.color = 'black';
             event.preventDefault();
       } massNumber();
         fuelNumber();
